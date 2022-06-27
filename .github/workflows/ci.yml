@@ -19,12 +19,12 @@ jobs:
         id: cached-pip-wheels
         uses: actions/cache@v2
         with:
-          path: ~/.cache
+          path: ~/.venv
           key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
       - name: Install dependencies
         run: poetry install --no-interaction --no-root
       - name: Install library
         run: poetry install --no-interaction
       - run: |
-          source $VENV
+          source .venv/bin/activate
           python src/parser.py
