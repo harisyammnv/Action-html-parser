@@ -30,6 +30,4 @@ jobs:
       - name: Check Scripts
         run: |
           source .venv/scripts/activate
-          ls
-          ls src/
-          python src/publisher.py
+          python publisher.py

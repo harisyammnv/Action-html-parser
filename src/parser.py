@@ -1,8 +1,6 @@
 from bs4 import BeautifulSoup
 from pathlib import Path
 import pandas as pd
-from mdutils.mdutils import MdUtils
-from mdutils import Html
 from tabulate import tabulate
 
 def parse_reports():
