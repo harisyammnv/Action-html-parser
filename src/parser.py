@@ -21,7 +21,7 @@ def parse_reports():
 
     df_tables.columns = ["Overview", "Report Value"]
 
-    print(tabulate(df_tables, tablefmt="pipe", headers="keys"))
+    summary = tabulate(df_tables, tablefmt="pipe", headers="keys")
 
     file_names = soup.find_all('h4', {'class' : 'Heading4'})
     m_file_names = [file_name.text.split("Analysis=")[-1]+".m" for file_name in file_names if "Analysis" in file_name.text]
@@ -39,6 +39,6 @@ def parse_reports():
                                         "Test Duration": test_duration})
 
     result = tabulate(quality_report_details, tablefmt="pipe", headers="keys")
-    return result
+    return summary, result
     
     

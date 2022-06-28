@@ -33,3 +33,4 @@ jobs:
           python publisher.py
         env:
           GITHUB_TOKEN: ${{ github.token }}
+          FILE_NAME: "file.json"
