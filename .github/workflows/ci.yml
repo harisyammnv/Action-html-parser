@@ -26,5 +26,5 @@ jobs:
       - name: Install library
         run: poetry install --no-interaction
       - run: |
-          ./.venv/bin/activate
-          python src/parser.py
+          .\.venv\bin\activate
+          python src\parser.py
