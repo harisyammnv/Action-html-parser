@@ -37,4 +37,6 @@ jobs:
           FILE_NAME: "file.json"
       - name: Publish Job Summary
         run: |
-          cat .\file.json >> $GITHUB_STEP_SUMMARY
+          ls
+          ls src/
+          cat file.json >> $GITHUB_STEP_SUMMARY
