@@ -1,5 +1,5 @@
 from github import Github
-from parser import parse_reports
+from src.parser import parse_reports
 import os
 
 options = dict(os.environ)
