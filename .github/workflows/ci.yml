@@ -25,6 +25,10 @@ jobs:
         run: poetry install --no-interaction --no-root
       - name: Install library
         run: poetry install --no-interaction
+      - name: Check Scripts
       - run: |
-          .\.venv\bin\activate
+          ls .venv\scripts\
+          ls .venv\
+          .venv\scripts\activate
+          .venv\bin\activate
           python src\parser.py
