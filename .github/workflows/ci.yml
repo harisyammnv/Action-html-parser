@@ -6,8 +6,10 @@ on:
 
 jobs:
   TestParser:
+    defaults:
+      run:
+        shell: bash
     runs-on: windows-latest
-
     steps:
       - uses: actions/checkout@v2
       - name: Setup Environment
@@ -19,12 +21,13 @@ jobs:
         id: cached-pip-wheels
         uses: actions/cache@v2
         with:
-          path: ~/.venv
+          path: ~/.cache
           key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
       - name: Install dependencies
         run: poetry install --no-interaction --no-root
       - name: Install library
         run: poetry install --no-interaction
-      - run: |
-          source .venv/bin/activate
+      - name: Check Scripts
+        run: |
+          source .venv/scripts/activate
           python src/parser.py
