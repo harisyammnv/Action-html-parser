@@ -27,8 +27,7 @@ jobs:
         run: poetry install --no-interaction
       - name: Check Scripts
         run: |
-          ls .venv\scripts\
-          ls .venv\
-          .venv\scripts\activate
-          .venv\bin\activate
+          cd .venv\scripts\
+          .\activate.bat
+          cd ../..
           python src\parser.py
