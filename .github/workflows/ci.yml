@@ -27,10 +27,14 @@ jobs:
         run: poetry install --no-interaction --no-root
       - name: Install library
         run: poetry install --no-interaction
-      - name: Check Scripts
+      - name: Run Publisher
+        id: publisher
         run: |
           source .venv/scripts/activate
           python publisher.py
         env:
           GITHUB_TOKEN: ${{ github.token }}
           FILE_NAME: "file.json"
+      - name: Publish Job Summary
+        run: |
+          cat .\file.json >> $GITHUB_STEP_SUMMARY

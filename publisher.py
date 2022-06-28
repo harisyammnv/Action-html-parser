@@ -7,8 +7,7 @@ options = dict(os.environ)
 def append_to_file(content: str, env_file_var_name: str):
     # appends content to an environment file denoted by an environment variable name
     # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#environment-files
-    filename = os.getenv(env_file_var_name)
-    with open(Path.cwd().joinpath(filename), 'w', encoding='utf-8') as file:
+    with open(Path.cwd().joinpath(env_file_var_name), 'w', encoding='utf-8') as file:
         file.write(content)
 
 g = Github(options["GITHUB_TOKEN"])
