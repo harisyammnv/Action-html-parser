@@ -31,3 +31,5 @@ jobs:
         run: |
           source .venv/scripts/activate
           python publisher.py
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
