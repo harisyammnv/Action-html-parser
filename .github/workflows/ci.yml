@@ -34,9 +34,17 @@ jobs:
           python publisher.py
         env:
           GITHUB_TOKEN: ${{ github.token }}
-          FILE_NAME: "file.json"
+          FILE_NAME: "file.md"
       - name: Publish Job Summary
         run: |
           ls
           ls src/
-          cat file.json >> $GITHUB_STEP_SUMMARY
+          cat file.md >> $GITHUB_STEP_SUMMARY
+        uses: LouisBrunner/checks-action@v1.1.1
+        if: always()
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: Quality Report
+          conclusion: ${{ job.status }}
+          output: |
+            {"summary": "Quality report: passed"}
