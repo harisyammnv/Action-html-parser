@@ -18,5 +18,5 @@ summary, result = parse_reports()
 
 pr.create_issue_comment(result)
 
-markdown = f'## Code Quality Results\n{summary} \n ### File Results \n{summary}'
+markdown = f'## Code Quality Results\n{summary} \n ### File Results \n{result}'
 append_to_file(content = markdown, env_file_var_name=options["FILE_NAME"])

@@ -40,3 +40,11 @@ jobs:
           ls
           ls src/
           cat file.md >> $GITHUB_STEP_SUMMARY
+      - uses: LouisBrunner/checks-action@v1.1.1
+        if: always()
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: Quality Report
+          conclusion: ${{ job.status }}
+          output: |
+            {"summary": "Quality report: passed"}
