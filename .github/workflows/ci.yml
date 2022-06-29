@@ -1,9 +1,10 @@
 name: Test Parser
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+    - development
   
-
 jobs:
   TestParser:
     defaults:
