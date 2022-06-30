@@ -40,7 +40,7 @@ jobs:
           ls
           ls src/
           cat file.json >> $GITHUB_STEP_SUMMARY
-          $JSON={"result": $(cat file.json)}
+          $JSON= $(cat file.json)
           echo "::set-output name=json::$JSON"
       - uses: LouisBrunner/checks-action@v1.1.1
         if: always()
@@ -49,4 +49,4 @@ jobs:
           name: Quality Report
           conclusion: ${{ job.status }}
           output: |
-            {"summary": fromJSON(steps.publish-results.outputs.json)}
+            {"summary": steps.publish-results.outputs.json}
