@@ -40,7 +40,7 @@ jobs:
           ls
           ls src/
           cat file.json >> $GITHUB_STEP_SUMMARY
-          $JSON= $(cat file.json)
+          JSON=`cat file.json`
           echo "::set-output name=json::$JSON"
       - uses: LouisBrunner/checks-action@v1.1.1
         if: always()
