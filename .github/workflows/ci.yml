@@ -48,5 +48,4 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           name: Quality Report
           conclusion: ${{ job.status }}
-          output: |
-            steps.publish-results.outputs.json
+          output: ${{fromJson(steps.publish-results.outputs.json)}}
