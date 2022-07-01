@@ -47,4 +47,4 @@ jobs:
           name: Quality Report
           conclusion: ${{ job.status }}
           output: |
-            {"summary": ${{ steps.publish-results.outputs.markdown }}}
+            {"summary": ${{ steps.publish-results.outputs.md }}}
