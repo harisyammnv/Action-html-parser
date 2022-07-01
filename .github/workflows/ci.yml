@@ -46,4 +46,8 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           name: Quality Report
           conclusion: ${{ job.status }}
+          output: |
+            {
+              "summary": "Quality Report Summary"
+            }
           output_text_description_file: "./file.md"
