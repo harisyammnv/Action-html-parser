@@ -39,13 +39,12 @@ jobs:
         run: |
           cat file.md >> $GITHUB_STEP_SUMMARY
           markdown=`cat file.md`
-          json=`cat file-result.json`
           echo "::set-output name=md::$markdown"
-          echo "::set-output name=json::$json"
       - uses: LouisBrunner/checks-action@v1.1.1
         if: always()
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           name: Quality Report
           conclusion: ${{ job.status }}
-          output: ${{fromJson(steps.publish-results.outputs.json)}}
+          output: |
+            {"summary": ${{ steps.publish-results.outputs.markdown }}}
