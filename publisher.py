@@ -1,7 +1,9 @@
-from github import Github
+from github import Github, CheckRunAnnotation
 import os
 from pathlib import Path
 from src.parser import parse_reports
+from src.github_action import *
+
 options = dict(os.environ)
 
 def append_to_file(content: str, env_file_var_name: str):
@@ -18,5 +20,8 @@ summary, result = parse_reports()
 
 pr.create_issue_comment(result)
 
-markdown = f'## Code Quality Results\n{summary} \n ### File Results \n{result}'
+markdown = f"## Code Quality Results\n{summary} \n ### File Results \n{result}"
 append_to_file(content = markdown, env_file_var_name=options["FILE_NAME"])
+
+json = {"summary": markdown}
+append_to_file(content = json, env_file_var_name=options["FILE_NAME"].strip('.md')+'-result.json')

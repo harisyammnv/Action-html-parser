@@ -23,7 +23,7 @@ def parse_reports():
     emoticon_dict = {"passed": ":white_check_mark:", "failed": ":x:", "errors": ":heavy_exclamation_mark:"}
     df_tables["Report Value"] = df_tables["Report Value"].str.lower()
     df_tables["Report Value"] = df_tables["Report Value"].replace(emoticon_dict)
-    summary = tabulate(df_tables[-3:].reset_index(drop=True).T, tablefmt="pipe", headers="keys")
+    summary = tabulate(df_tables[-3:].reset_index(drop=True), tablefmt="pipe", headers="keys")
 
     file_names = soup.find_all('h4', {'class' : 'Heading4'})
     m_file_names = [file_name.text.split("Analysis=")[-1]+".m" for file_name in file_names if "Analysis" in file_name.text]

@@ -33,15 +33,15 @@ jobs:
           python publisher.py
         env:
           GITHUB_TOKEN: ${{ github.token }}
-          FILE_NAME: "file.json"
+          FILE_NAME: "file.md"
       - name: Publish Job Summary
         id: publish-results
         run: |
-          ls
-          ls src/
-          cat file.json >> $GITHUB_STEP_SUMMARY
-          JSON=`cat file.json`
-          echo "::set-output name=json::$JSON"
+          cat file.md >> $GITHUB_STEP_SUMMARY
+          markdown=`cat file.md`
+          json=`cat file-result.json`
+          echo "::set-output name=md::$markdown"
+          echo "::set-output name=json::$json"
       - uses: LouisBrunner/checks-action@v1.1.1
         if: always()
         with:
@@ -49,4 +49,4 @@ jobs:
           name: Quality Report
           conclusion: ${{ job.status }}
           output: |
-            {"summary": steps.publish-results.outputs.json}
+            steps.publish-results.outputs.json
