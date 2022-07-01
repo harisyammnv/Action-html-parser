@@ -40,7 +40,7 @@ jobs:
           cat file.md >> $GITHUB_STEP_SUMMARY
           markdown=`cat file.md`
           echo "::set-output name=md::$markdown"
-      - uses: LouisBrunner/checks-action@v1.1.1
+      - uses: LouisBrunner/checks-action@v1.2.0
         if: always()
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
