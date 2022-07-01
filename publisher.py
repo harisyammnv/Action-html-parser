@@ -20,8 +20,8 @@ summary, result = parse_reports()
 
 pr.create_issue_comment(result)
 
+markdown = f"## Code Quality Results\n{summary}"
+append_to_file(content = markdown, env_file_var_name=options["FILE_NAME"].strip(".md")+"-summary.md")
+
 markdown = f"## Code Quality Results\n{summary} \n ### File Results \n{result}"
 append_to_file(content = markdown, env_file_var_name=options["FILE_NAME"])
-
-#json_content = {"summary": markdown}
-#append_to_file(content = json_content), env_file_var_name=options["FILE_NAME"].strip('.md')+'-result.txt')

@@ -38,8 +38,6 @@ jobs:
         id: publish-results
         run: |
           cat file.md >> $GITHUB_STEP_SUMMARY
-          markdown=`cat file.md`
-          echo "::set-output name=md::$markdown"
       - uses: LouisBrunner/checks-action@v1.2.0
         if: always()
         with:
@@ -50,4 +48,4 @@ jobs:
             {
               "summary": "Quality Report Summary"
             }
-          output_text_description_file: "./file.md"
+          output_text_description_file: "./file-summary.md"
