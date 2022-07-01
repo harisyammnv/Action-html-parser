@@ -37,7 +37,7 @@ jobs:
       - name: Publish Job Summary
         id: publish-results
         run: |
-          cat file.md >> $GITHUB_STEP_SUMMARY
+          cat file-summary.md >> $GITHUB_STEP_SUMMARY
       - uses: LouisBrunner/checks-action@v1.2.0
         if: always()
         with:
@@ -48,4 +48,4 @@ jobs:
             {
               "summary": "Quality Report Summary"
             }
-          output_text_description_file: "./file-summary.md"
+          output_text_description_file: "./file.md"
