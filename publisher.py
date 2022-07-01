@@ -2,7 +2,6 @@ from github import Github, CheckRunAnnotation
 import os
 from pathlib import Path
 from src.parser import parse_reports
-from src.github_action import *
 
 options = dict(os.environ)
 
