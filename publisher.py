@@ -1,6 +1,7 @@
-from github import Github, CheckRunAnnotation
+from github import Github
 import os
 from pathlib import Path
+import json
 from src.parser import parse_reports
 
 options = dict(os.environ)
@@ -22,5 +23,5 @@ pr.create_issue_comment(result)
 markdown = f"## Code Quality Results\n{summary} \n ### File Results \n{result}"
 append_to_file(content = markdown, env_file_var_name=options["FILE_NAME"])
 
-json = {"summary": markdown}
-append_to_file(content = json, env_file_var_name=options["FILE_NAME"].strip('.md')+'-result.json')
+json_content = {"summary": markdown}
+append_to_file(content = json.dumps(json_content), env_file_var_name=options["FILE_NAME"].strip('.md')+'-result.json')
