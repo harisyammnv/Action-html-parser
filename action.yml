@@ -64,16 +64,15 @@ runs:
         path: ~/.cache
         key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
     - name: Install dependencies
-      run: poetry install --no-interaction --no-root
-      shell: bash
-    - name: Install library
-      run: poetry install --no-interaction
+      run: |
+        cp $GITHUB_ACTION_PATH/../pyproject.toml .
+        poetry install --no-interaction
       shell: bash
     - name: Run Publisher
       id: publisher
       run: |
         source .venv/scripts/activate
-        python publisher.py
+        python $GITHUB_ACTION_PATH/../publisher.py
       env:
         GITHUB_TOKEN: ${{ inputs.github_token }}
         HTML_FILE: ${{ inputs.html_file }}
@@ -95,3 +94,7 @@ runs:
             "summary": "Quality Report Summary"
           }
         output_text_description_file: "./file.md"
+
+branding:
+  icon: 'check-circle'
+  color: 'green'

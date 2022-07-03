@@ -1,9 +1,7 @@
 name: Test HTML Parser
 
 on:
-  push:
-    branches:
-    - development
+  workflow_dispatch:
 
 jobs:
   TestParser:
