@@ -5,8 +5,7 @@ description: A Github Action that parses Code Quality HTML results
 inputs:
   github_token:
     description: GitHub API Access Token
-    default: ${{ github.token }}
-    required: false
+    required: true
   html_file:
     description: Code Quality HTML File Path
     default: "data/CodeQuality/result/index.html"
