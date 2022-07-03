@@ -28,6 +28,7 @@ inputs:
 runs:
   using: 'composite'
   steps:
+    - uses: actions/checkout@v2
     - name: Check for Python3
       run: |
         echo '##[group]Check for Python3'
