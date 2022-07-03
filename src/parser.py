@@ -3,9 +3,9 @@ from pathlib import Path
 import pandas as pd
 from tabulate import tabulate
 
-def parse_reports():
+def parse_reports(options):
 
-    html_data = Path.cwd().joinpath("data/CodeQuality/result/index.html")
+    html_data = Path.cwd().joinpath(options["HTML_FILE"])
     with open(html_data) as fp:
         soup = BeautifulSoup(fp, 'html.parser')
 

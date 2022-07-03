@@ -13,15 +13,16 @@ def append_to_file(content: str, env_file_var_name: str):
         file.write(content)
 
 g = Github(options["GITHUB_TOKEN"])
-repo_name = 'harisyammnv/html-parser'
+repo_name = options["GITHUB_REPOSITORY"]
 repo = g.get_repo(repo_name)
-pr = repo.get_pull(1)
-summary, result = parse_reports()
+pulls = repo.get_pulls(state="open", sort='created')
+pr = repo.get_pull(pulls[-1].number)
+summary, result = parse_reports(options)
 
 pr.create_issue_comment(result)
 
 markdown = f"## Code Quality Results\n{summary}"
-append_to_file(content = markdown, env_file_var_name=options["FILE_NAME"].strip(".md")+"-summary.md")
+append_to_file(content = markdown, env_file_var_name=options["SUMMARY_FILE_NAME"].strip(".md")+"-summary.md")
 
 markdown = f"## Code Quality Results\n{summary} \n ### File Results \n{result}"
-append_to_file(content = markdown, env_file_var_name=options["FILE_NAME"])
+append_to_file(content = markdown, env_file_var_name=options["SUMMARY_FILE_NAME"])
