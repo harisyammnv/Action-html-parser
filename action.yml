@@ -71,6 +71,7 @@ runs:
       id: publisher
       run: |
         source .venv/scripts/activate
+        ls
         python $GITHUB_ACTION_PATH\\publisher.py
       env:
         GITHUB_TOKEN: ${{ inputs.github_token }}
