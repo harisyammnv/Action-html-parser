@@ -64,14 +64,14 @@ runs:
         key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
     - name: Install dependencies
       run: |
-        cp $GITHUB_ACTION_PATH\pyproject.toml .
+        cp $GITHUB_ACTION_PATH\\pyproject.toml .
         poetry install --no-interaction
       shell: bash
     - name: Run Publisher
       id: publisher
       run: |
         source .venv/scripts/activate
-        python $GITHUB_ACTION_PATH\publisher.py
+        python $GITHUB_ACTION_PATH\\publisher.py
       env:
         GITHUB_TOKEN: ${{ inputs.github_token }}
         HTML_FILE: ${{ inputs.html_file }}
