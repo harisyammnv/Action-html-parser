@@ -3,8 +3,18 @@ import os
 from pathlib import Path
 import json
 from src.parser import parse_reports
-
+from src.retry import GitHubRetry
+from src.github_action import GithubAction
+from urllib3.util.retry import Retry
 options = dict(os.environ)
+
+def get_github(token: str, url: str, retries: int, backoff_factor: float, gha: GithubAction):
+    retry = GitHubRetry(gha=gha,
+                        total=retries,
+                        backoff_factor=backoff_factor,
+                        allowed_methods=Retry.DEFAULT_ALLOWED_METHODS.union({'GET', 'POST'}),
+                        status_forcelist=list(range(500, 600)))
+    return Github(login_or_token=token, base_url=url, per_page=100, retry=retry)
 
 def append_to_file(content: str, env_file_var_name: str):
     # appends content to an environment file denoted by an environment variable name
@@ -12,12 +22,20 @@ def append_to_file(content: str, env_file_var_name: str):
     with open(Path.cwd().joinpath(env_file_var_name), 'w', encoding='utf-8') as file:
         file.write(content)
 
-g = Github(options["GITHUB_TOKEN"])
-repo_name = "harisyammnv/reusable-workflows"
+gha = GithubAction()
+seconds_between_github_reads = options['SECONDS_BETWEEN_GITHUB_READS']
+seconds_between_github_writes = options['SECONDS_BETWEEN_GITHUB_WRITES']
+backoff_factor = max(seconds_between_github_reads, seconds_between_github_writes)
+g = get_github(token=options["GITHUB_TOKEN"], 
+               url=options['GITHUB_API_URL'], 
+               retries='10', 
+               backoff_factor=backoff_factor, 
+               gha=gha)
+
+repo_name = options["GITHUB_REPOSITORY"]
 repo = g.get_repo(repo_name)
 pulls = list(repo.get_pulls(state="open", sort='created'))
 pr = repo.get_pull(pulls[-1].number)
-print(pulls[-1])
 summary, result = parse_reports(options)
 
 pr.create_issue_comment(result)
