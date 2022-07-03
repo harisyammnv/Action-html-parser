@@ -14,6 +14,7 @@ def append_to_file(content: str, env_file_var_name: str):
 
 g = Github(options["GITHUB_TOKEN"])
 repo_name = options["GITHUB_REPOSITORY"]
+print(repo_name)
 repo = g.get_repo(repo_name)
 pulls = list(repo.get_pulls(state="open", sort='created'))
 pr = repo.get_pull(pulls[-1].number)
