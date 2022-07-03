@@ -1,0 +1,18 @@
+name: Test HTML Parser
+
+on:
+  push:
+    branches:
+    - development
+
+jobs:
+  TestParser:
+    defaults:
+      run:
+        shell: bash
+    runs-on: windows-latest
+    steps:
+      - name: Test the Action
+        uses: ./
+        with:
+          html_file: "data/CodeQuality/result/index.html"
