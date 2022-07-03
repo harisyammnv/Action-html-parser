@@ -15,12 +15,8 @@ def append_to_file(content: str, env_file_var_name: str):
 g = Github(options["GITHUB_TOKEN"])
 repo_name = options["GITHUB_REPOSITORY"]
 repo = g.get_repo(repo_name)
-pulls = repo.get_pulls(state="open", sort='created')
-print(pulls)
-print(list(pulls))
-for pull in pulls:
-    nr = pull.number
-pr = repo.get_pull(nr)
+pulls = list(repo.get_pulls(state="open", sort='created'))
+pr = repo.get_pull(pulls[-1].number)
 summary, result = parse_reports(options)
 
 pr.create_issue_comment(result)
