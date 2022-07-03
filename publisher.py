@@ -23,8 +23,8 @@ def append_to_file(content: str, env_file_var_name: str):
         file.write(content)
 
 gha = GithubAction()
-seconds_between_github_reads = options['SECONDS_BETWEEN_GITHUB_READS']
-seconds_between_github_writes = options['SECONDS_BETWEEN_GITHUB_WRITES']
+seconds_between_github_reads = 1
+seconds_between_github_writes = 2
 backoff_factor = max(seconds_between_github_reads, seconds_between_github_writes)
 g = get_github(token=options["GITHUB_TOKEN"], 
                url=options['GITHUB_API_URL'], 
