@@ -16,8 +16,9 @@ g = Github(options["GITHUB_TOKEN"])
 repo_name = options["GITHUB_REPOSITORY"]
 repo = g.get_repo(repo_name)
 pulls = repo.get_pulls(state="open", sort='created')
+print(pulls)
+print(list(pulls))
 for pull in pulls:
-    print(pull)
     nr = pull.number
 pr = repo.get_pull(nr)
 summary, result = parse_reports(options)
