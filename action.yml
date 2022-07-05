@@ -82,17 +82,17 @@ runs:
       run: |
         cat file-summary.md >> $GITHUB_STEP_SUMMARY
       shell: bash
-    - uses: LouisBrunner/checks-action@v1.2.0
-      if: always()
-      with:
-        token: ${{ inputs.github_token }}
-        name: ${{ inputs.comment_title }}
-        conclusion: ${{ job.status }}
-        output: |
-          {
-            "summary": "Quality Report Summary"
-          }
-        output_text_description_file: "./file.md"
+    # - uses: LouisBrunner/checks-action@v1.2.0
+    #   if: always()
+    #   with:
+    #     token: ${{ inputs.github_token }}
+    #     name: ${{ inputs.comment_title }}
+    #     conclusion: ${{ job.status }}
+    #     output: |
+    #       {
+    #         "summary": "Quality Report Summary"
+    #       }
+    #     output_text_description_file: "./file.md"
 
 branding:
   icon: 'check-circle'
