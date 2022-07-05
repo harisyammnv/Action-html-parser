@@ -93,11 +93,13 @@ summary_dict["title"] = "Code Quality Check"
 summary_dict["summary"] = markdown
 summary_dict["text"] = f"### File Results \n{result}"
 
-repo.create_check_run(name="Code Quality Results", 
+check_run = repo.create_check_run(name="Code Quality Results", 
                       head_sha=get_commit_sha(event, event_name, options),
                       status="completed",
                       conclusion=conclusion,
                       output=summary_dict)
+
+print(f'Created check {check_run.html_url}')
 
 append_to_file(content = markdown, env_file_var_name=options["SUMMARY_FILE_NAME"].strip(".md")+"-summary.md")
 append_to_file(content = full_markdown, env_file_var_name=options["SUMMARY_FILE_NAME"])
