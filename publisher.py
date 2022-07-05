@@ -36,9 +36,15 @@ repo_name = options["GITHUB_REPOSITORY"]
 repo = g.get_repo(repo_name)
 pulls = list(repo.get_pulls(state="open", sort='created'))
 pr = repo.get_pull(pulls[-1].number)
-summary, result = parse_reports(options)
+summary, result, conclusion, summary_dict = parse_reports(options)
 
 pr.create_issue_comment(result)
+
+repo.create_check_run(name="Code Quality Results", 
+                      head_sha=options["COMMIT"],
+                      status="completed",
+                      conclusion=conclusion,
+                      output=summary_dict)
 
 markdown = f"## Code Quality Results\n{summary}"
 append_to_file(content = markdown, env_file_var_name=options["SUMMARY_FILE_NAME"].strip(".md")+"-summary.md")
