@@ -32,7 +32,7 @@ def parse_reports(options):
         
     df_tables["Report Value"] = df_tables["Report Value"].replace(emoticon_dict)
     summary = tabulate(df_tables[-3:].reset_index(drop=True), tablefmt="pipe", headers="keys")
-    summary_dict = df_tables[-3:].to_dict('list')
+    # summary_dict = df_tables[-3:].to_dict('list')
 
     file_names = soup.find_all('h4', {'class' : 'Heading4'})
     m_file_names = [file_name.text.split("Analysis=")[-1]+".m" for file_name in file_names if "Analysis" in file_name.text]
@@ -51,6 +51,6 @@ def parse_reports(options):
     quality_report_details["Test Status"] = quality_report_details["Test Status"].replace(emoticon_dict)
 
     result = tabulate(quality_report_details.reset_index(drop=True), tablefmt="pipe", headers="keys")
-    return summary, result, conclusion, summary_dict
+    return summary, result, conclusion
     
     
