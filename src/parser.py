@@ -23,7 +23,13 @@ def parse_reports(options):
     emoticon_dict = {"passed": ":white_check_mark:", "failed": ":x:", "errors": ":heavy_exclamation_mark:"}
     df_tables["Report Value"] = df_tables["Report Value"].str.lower()
     df_tables["Overview"] = df_tables["Overview"].str.rstrip(":")
+    conclusion_dict = {"passed": "success", "failed": "failure", "errors":"action_required", "others": "neutral"}
     conclusion = df_tables.loc[df_tables["Overview"]=="Overall Result","Report Value"].item()
+    if conclusion in conclusion_dict.keys():
+        conclusion = conclusion_dict[conclusion]
+    else:
+        conclusion = conclusion_dict["others"]
+        
     df_tables["Report Value"] = df_tables["Report Value"].replace(emoticon_dict)
     summary = tabulate(df_tables[-3:].reset_index(drop=True), tablefmt="pipe", headers="keys")
     summary_dict = df_tables[-3:].to_dict('list')
