@@ -41,7 +41,7 @@ summary, result, conclusion, summary_dict = parse_reports(options)
 pr.create_issue_comment(result)
 
 repo.create_check_run(name="Code Quality Results", 
-                      head_sha=options["COMMIT"],
+                      head_sha=options["GITHUB_SHA"],
                       status="completed",
                       conclusion=conclusion,
                       output=summary_dict)
