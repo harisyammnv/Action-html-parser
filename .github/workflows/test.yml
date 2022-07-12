@@ -1,0 +1,17 @@
+name: Test HTML Parser
+
+on:
+  workflow_dispatch:
+
+jobs:
+  TestParser:
+    defaults:
+      run:
+        shell: bash
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Test the Action
+        uses: ./
+        with:
+          html_file: "data/CodeQuality/result/index.html"

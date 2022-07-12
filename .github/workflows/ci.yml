@@ -3,7 +3,6 @@ name: Test Parser
 on:
   workflow_dispatch:
   
-
 jobs:
   TestParser:
     defaults:
@@ -27,7 +26,26 @@ jobs:
         run: poetry install --no-interaction --no-root
       - name: Install library
         run: poetry install --no-interaction
-      - name: Check Scripts
+      - name: Run Publisher
+        id: publisher
         run: |
           source .venv/scripts/activate
-          python src/parser.py
+          python publisher.py
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          FILE_NAME: "file.md"
+      - name: Publish Job Summary
+        id: publish-results
+        run: |
+          cat file-summary.md >> $GITHUB_STEP_SUMMARY
+      - uses: LouisBrunner/checks-action@v1.2.0
+        if: always()
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: Quality Report
+          conclusion: ${{ job.status }}
+          output: |
+            {
+              "summary": "Quality Report Summary"
+            }
+          output_text_description_file: "./file.md"
